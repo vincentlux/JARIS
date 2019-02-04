@@ -27,7 +27,8 @@ Just Another Really Intelligent System
 
 
 `npm run dev` in `./app` to start Vue.js
-* to specify port: `HOST=0.0.0.0 PORT=8080 npm run dev`
+* You may need to insert Google Speech API json file into app.js after `keyFileName`  
+* To specify port: `HOST=0.0.0.0 PORT=8080 npm run dev`
 
 `node app` in `./app/speech-ws` to start websocket
 
