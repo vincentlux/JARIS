@@ -30,6 +30,7 @@
 <script>
   var audioContext = new(window.AudioContext || window.webkitAudioContext)();
   var socket = io.connect('http://localhost:5000');
+  //var socket = io.connect('http://167.99.3.111:5002');
   var ssStream = ss.createStream();
   var scriptNode;
   
