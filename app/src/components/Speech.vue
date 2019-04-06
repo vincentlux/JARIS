@@ -57,6 +57,7 @@
       successCallback(stream) {
         const vm = this;
         console.log('successCallback:...IN');
+        console.log('successCallback:...IN');
         // add user gesture
         console.log(audioContext.resume());
         var input = audioContext.createMediaStreamSource(stream);
