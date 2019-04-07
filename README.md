@@ -16,7 +16,8 @@ Just Another Really Intelligent System
 
 # How to
 
-`cd` into `./app` 
+## For web-app
+`cd ./app` 
 
 `npm install` all dependencies for Vue.js
 
@@ -31,6 +32,10 @@ Just Another Really Intelligent System
 * To specify port: `HOST=0.0.0.0 PORT=8080 npm run dev`
 
 `node app` in `./app/speech-ws` to start websocket
+
+## For solr indexing (only need to do one time to set up as a service)
+`cd ./solr`
+`python csv_xml.py` to convert all csv instance into xml 
 
 
 
