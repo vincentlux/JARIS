@@ -1,4 +1,5 @@
 import argparse, os, re
+from xml.sax.saxutils import escape
 
 # Tags
 tag_start           = '<add>\n<doc>\n'
@@ -18,7 +19,7 @@ def docs_to_xml(lines, dir_out):
         os.makedirs(dir_out)
     for i in range(len(lines)):
         str_id = tag_id + str(i) + tag_close
-        content = tag_content + lines[i] + tag_close
+        content = tag_content + xmlescape(lines[i].strip()) + tag_close
         res = tag_start + str_id + content + tag_end
         save_to_xml(res, i, dir_out)
 
@@ -36,7 +37,14 @@ def save_to_xml(xml, str_id, dir_out):
     with open (path_out, 'w') as f:
         f.write(xml)
         print(f'finished processing {path_out}')
-        
+
+
+def xmlescape(data):
+    return escape(data, entities={
+        "'": "&apos;",
+        "\"": "&quot;"
+    })
+
 
 
 if __name__ == '__main__':
