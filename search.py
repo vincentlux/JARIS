@@ -22,5 +22,12 @@ if __name__ == "__main__":
 
     # pass args to search
     results = search(args.keyword, test=args.test)
-    print("Saw {0} result(s).".format(len(results)))
-    print(results)
+    print(f"Saw {len(results)} result(s).")
+    for result in results:
+        try:
+            print(f"id: {result['doc_id'][0]}.")
+            print(f"content: {result['content'][0]}.")
+        except Exception as e:
+            print(e)
+
+        
