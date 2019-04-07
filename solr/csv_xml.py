@@ -2,7 +2,7 @@ import argparse, os, re
 
 # Tags
 tag_start           = '<add>\n<doc>\n'
-tag_id              = '<field name="id">'
+tag_id              = '<field name="doc_id">'
 tag_content         = '<field name="content">'
 tag_close           = '</field>\n'
 tag_end             = '</doc>\n</add>'
