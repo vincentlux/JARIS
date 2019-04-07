@@ -16,6 +16,16 @@ Just Another Really Intelligent System
 
 # How to
 
+## For search by keyword (test)
+1. git clone this repo
+2. `pip install -r requirements.txt`
+3. `python search.py --test --keyword percutaneous` 
+    * `--test`: test mode
+    * `--keyword`: keyword you want to search. e.g. `--keyword thermal`
+
+
+
+
 ## For web-app
 `cd ./app` 
 
