@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <h1 class="cover-heading ">JARIS</h1>
-    <!-- <b-form @submit="onSubmit" @reset="onReset" >
+    <b-form @submit="onSubmit">
       <b-form-group id="Inp1"
                     label-sr-only
                     label-for="Inp1">
@@ -10,24 +10,43 @@
                       v-model="form.name"
                       required
                       placeholder="Type here and press Enter">
-        </b-form-input> -->
-      <!-- </b-form-group> -->
+        </b-form-input>
+      </b-form-group>
 
       <b-button class = "button" variant="primary" v-show="btn && !btnReset" v-on:click="startRecording">Start Recording</b-button>
       <b-button class = "button" variant="danger" v-show="btnStop" v-on:click="stopRecording">Stop</b-button>
       <b-button class = "button" variant="danger" v-show="btnReset" v-on:click="redirectError">Reset</b-button>
 
-    <!-- </b-form> -->
+    </b-form>
 
-    <b-card class="text">
-   {{textResult}}
-    </b-card>
+    <!-- <b-card class="text">
+   {{this.resObj}}
+    </b-card> -->
+
+    <div class="searchResult" v-show="isResult&noError" transition="expand">
+          <a v-for="elem in resObj" :key="elem.message_id">
+
+      <b-card no-body>
+          <h3 class="card-text">id: {{ elem.doc_id }}</h3>
+
+          <!-- <p class="card-text">
+              From: {{ elem.from[0] }}
+              From_name: {{ elem.from_name[0].replace(/ *\<[^>]*\> */g, "") }}
+          </p> -->
+
+          <p class="card-text">
+              {{ elem.content[0] }}
+          </p>
+      </b-card>
+      </a>
+    </div>
 
   </div>
 
 </template>
 
 <script>
+  import axios from 'axios';
   var audioContext = new(window.AudioContext || window.webkitAudioContext)();
   var socket = io.connect('http://localhost:5000');
   //var socket = io.connect('http://167.99.3.111:5002');
@@ -38,13 +57,20 @@
     // inject: ['reload'],
     data() {
       return {
+        form: {
+          name: '',
+        },
         btn: true,
         btnStop: false,
         btnReset: false,
         result: false,
+        resObj: null,
         resultError: false,
         textResult: "",
         selected: 'en-US',
+        isResult:false,
+        noError:true,
+        firstLoad: true,
         items: [
           {
             text: 'English (United States)',
@@ -54,6 +80,35 @@
       }
     },
     methods: {
+      fetchResult(query){
+        // console.log(JSON.stringify(query));
+        //const path = 'http://167.99.3.111:5001/simple';
+        const path = 'http://localhost:5001/speech';
+        // Axios
+        console.log(query)
+        axios.post(path, query)
+          .then((res)=>{
+            console.log("success")
+            this.time = res.data.QTime / 1000;
+            this.num = Object.keys(res.data.docs).length;
+            this.resObj = res.data.docs;
+            console.log(this.resObj)
+            this.isResult = true;
+            this.noError = true;
+          })
+          .catch((error) => {
+            // this.errMsg =  error.response.data.message;
+            this.noError = false;
+          });
+      },
+      onSubmit () {
+        // fake submit
+        const query = {query:this.form.name};
+        console.log(query);
+        this.firstLoad = false;
+        this.isResult = false;
+        this.fetchResult(query);
+      },
       successCallback(stream) {
         const vm = this;
         console.log('successCallback:...IN');
@@ -110,7 +165,6 @@
         return result.buffer;
       },
       startRecording() {
-
         console.log("recording!!");
         // as
         // const languageSelected = this.selected;
@@ -137,6 +191,7 @@
         scriptNode.disconnect(audioContext.destination);
         ssStream.end();
         socket.emit('STOP_SPEECH', {});
+        this.onSubmit();
       },
       errorCallback(error) {
         // console.log('errorCallback:', error);
@@ -163,7 +218,7 @@
         }else{
           // console.log(text)
         
-          that.textResult = text;
+          that.form.name = text;
           // console.log("text:")
           // console.log("2")
           // // console.log(text)

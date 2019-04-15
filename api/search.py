@@ -5,7 +5,8 @@ def search(keyword, test=False):
     if test: # show mode
         solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris/")
     else:
-        raise NotImplementedError
+        # raise NotImplementedError
+        solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris/", results_cls=dict)
     query = 'content:' + add_quote(keyword)
     print(query)
     results = solr.search(q=query, rows=10000)
