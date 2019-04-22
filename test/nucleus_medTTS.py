@@ -50,9 +50,16 @@ def file_in():
 # "term frequency - inverse document frequency" weights
 def tfidf(df):
     # create a corpus from the keywords
+    print("**********************")
+    print(df)
+    print("**********************")
     corpus = []
     for x in df:
         corpus.append(x)
+    print("**********************")
+    print(corpus)
+    print("**********************")
+    # print(corpus, len(corpus))
     # create a dictionary for downstream network node labels
     node_labels = {}
     for x in range(len(df.index)):
@@ -70,6 +77,7 @@ def tfidf(df):
     # create a tf-idf model
     tf_idf = gs.models.TfidfModel(corpus)
     # return matrix with tf-idf weights, corpus, so we can later calculate similarity
+    print(corpus)
     return tf_idf, corpus, dictionary, node_labels
 
 # this function will calculate similarity between documents
@@ -98,6 +106,7 @@ def approximate(network):
     threshold = 0.25
     low_sim_edges = []
     for x in network.edges.data():
+        print(list(x[2].values()))
         if (list(x[2].values())) < [threshold]:
                 low_sim_edges.append((x[0],x[1]))
     network.remove_edges_from(low_sim_edges)
@@ -111,6 +120,14 @@ def AI(cliques, df):
     for c in cliques:
         if len(c) > 1:
             print(c)
+
+
+
+
+
+
+
+
 
 # call the main function so the program executes
 main()
