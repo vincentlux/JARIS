@@ -3,10 +3,10 @@ from utils import add_quote
 
 def search(keyword, test=False):
     if test: # show mode
-        solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris/")
+        solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris-large/")
     else:
         # raise NotImplementedError
-        solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris/", results_cls=dict)
+        solr = pysolr.Solr("http://104.248.61.45:8983/solr/jaris-large/", results_cls=dict)
     query = 'content:' + add_quote(keyword)
     print(query)
     results = solr.search(q=query, rows=10000)
