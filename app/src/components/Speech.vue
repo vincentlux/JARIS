@@ -23,11 +23,16 @@
    {{this.resObj}}
     </b-card> -->
 
+    <b-card class="text" v-show="isResult&noError">
+      <div>Fetched  {{ this.numBefore }} docs after search </div>
+
+      <div>Returned {{ this.numAfter }} docs after network algorithm</div>
+    </b-card>
     <div class="searchResult" v-show="isResult&noError" transition="expand">
           <a v-for="elem in resObj" :key="elem.message_id">
 
       <b-card no-body>
-          <h3 class="card-text">id: {{ elem.doc_id }}</h3>
+          <h3 class="card-text">{{ Number(elem.doc_id)+1 }}</h3>
 
           <!-- <p class="card-text">
               From: {{ elem.from[0] }}
@@ -65,6 +70,8 @@
         btnReset: false,
         result: false,
         resObj: null,
+        numBefore: 0,
+        numAfter: 0,
         resultError: false,
         textResult: "",
         selected: 'en-US',
@@ -89,8 +96,8 @@
         axios.post(path, query)
           .then((res)=>{
             console.log("success")
-            this.time = res.data.QTime / 1000;
-            this.num = Object.keys(res.data.docs).length;
+            this.numBefore = res.data.QNum;
+            this.numAfter = Object.keys(res.data.docs).length;
             this.resObj = res.data.docs;
             console.log(this.resObj)
             this.isResult = true;

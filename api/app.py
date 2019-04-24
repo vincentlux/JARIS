@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 from search import search
 from nucleus_medTTS import *
+from utils import stopword_removal
 
 # configuration
 DEBUG = True
@@ -22,13 +23,17 @@ def speech(network=True):
     if request.method == 'POST':
         post_data = request.get_json()
         query = post_data["query"]
-        # print(query)        
+        print(query)        
+        
+        query = stopword_removal(query)
+        print(query)
+
         res = search(query)
-        print(res)
+        print(len(res["response"]["docs"]))
 
         if network:
         # to nucleus_medTTS.py then return results 
-            response_object["QTime"] = 0
+            response_object["QNum"] = len(res["response"]["docs"])
             response_object["docs"] = network_search(res["response"]["docs"]) 
             return jsonify(response_object)
             # raise NotImplementedError

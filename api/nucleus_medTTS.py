@@ -143,7 +143,7 @@ def network_search(input_list):
         res_dict[i]['doc_id'] = str(i)
         res_dict[i]['content'] = res_list[i]
     
-    print(dict(res_dict))
+    print(res_dict)
     return dict(res_dict)
 
 
