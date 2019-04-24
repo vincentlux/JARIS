@@ -96,7 +96,7 @@ def cosine_similarity(tf_idf, corpus, node_labels):
 # this function will calculate network approximations to find
 # maximum degree node
 def approximate(network):
-    threshold = 0.25
+    threshold = 0.2
     low_sim_edges = []
     for x in network.edges.data():
         if (list(x[2].values())) < [threshold]:

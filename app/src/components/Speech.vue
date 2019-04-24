@@ -1,7 +1,7 @@
 <template>
   <div class="header">
-    <h1 class="cover-heading ">JARIS</h1>
-    <b-form @submit="onSubmit">
+    <h1 class="cover-heading ">Jaris</h1>
+    <b-form @submit="onSubmit" class="mx-auto" style="width: 700px;">
       <b-form-group id="Inp1"
                     label-sr-only
                     label-for="Inp1">
@@ -9,7 +9,7 @@
                       type="text"
                       v-model="form.name"
                       required
-                      placeholder="Type here and press Enter">
+                      placeholder="">
         </b-form-input>
       </b-form-group>
 
@@ -23,12 +23,12 @@
    {{this.resObj}}
     </b-card> -->
 
-    <b-card class="text" v-show="isResult&noError">
+    <b-card class="text mx-auto first" v-show="isResult&noError" >
       <div>Fetched  {{ this.numBefore }} docs after search </div>
 
       <div>Returned {{ this.numAfter }} docs after network algorithm</div>
     </b-card>
-    <div class="searchResult" v-show="isResult&noError" transition="expand">
+    <div class="searchResult mx-auto" v-show="isResult&noError" transition="expand" style="width: 700px;">
           <a v-for="elem in resObj" :key="elem.message_id">
 
       <b-card no-body>
