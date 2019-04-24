@@ -57,11 +57,11 @@ export default {
   padding-top: 5px;
 }
 .header .cover-heading {
-  font-family: sans-serif, serif;
+  /* font-family: sans-serif, serif; */
   font-size: 70px;
   color: #3e34f9;
-  margin-top: 6.6rem;
-  margin-bottom: 1.6rem;
+  margin-top: 3.6rem;
+  margin-bottom: 0.5rem;
 }
 .card {
   text-align: left;

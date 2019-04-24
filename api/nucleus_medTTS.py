@@ -96,7 +96,7 @@ def cosine_similarity(tf_idf, corpus, node_labels):
 # this function will calculate network approximations to find
 # maximum degree node
 def approximate(network):
-    threshold = 0.2
+    threshold = 0.15
     low_sim_edges = []
     for x in network.edges.data():
         if (list(x[2].values())) < [threshold]:
@@ -109,10 +109,11 @@ def approximate(network):
 
     return cliques 
 
-def AI(cliques, df):
-    for c in cliques:
-        if len(c) > 1:
-            print(c)
+# def AI(cliques, df):
+#     for c in cliques:
+#         print(c)
+#         if len(c) > 2:
+#             # print(c)
 
 
 
@@ -135,9 +136,16 @@ def network_search(input_list):
     res_list = []
     for c in cliques:
         if len(c) > 1:
-            res_list.append(c)
-            # print(c)
-    
+            if c not in res_list:
+                res_list.append(c)
+    print(res_list)
+
+    unique_list = []
+    for thing in res_list:
+        thing = tuple(thing)
+        unique_list.append(thing)
+    print(set(unique_list), len(set(unique_list)))
+    res_list = list(set(unique_list))
     res_dict = collections.defaultdict(dict)
     for i in range(len(res_list)):
         res_dict[i]['doc_id'] = str(i)

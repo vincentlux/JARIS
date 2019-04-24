@@ -1,11 +1,13 @@
 <template>
   <div class="header">
-    <h1 class="cover-heading ">Jaris</h1>
+    <h1 class="cover-heading ">J.A.R.I.S</h1>
+    <h4 style="margin-bottom: 1.5rem">"Just Another Really Intelligent System"</h4>
     <b-form @submit="onSubmit" class="mx-auto" style="width: 700px;">
       <b-form-group id="Inp1"
                     label-sr-only
                     label-for="Inp1">
         <b-form-input id="Inp2"
+                      size="lg"
                       type="text"
                       v-model="form.name"
                       required
@@ -24,9 +26,9 @@
     </b-card> -->
 
     <b-card class="text mx-auto first" v-show="isResult&noError" >
-      <div>Fetched  {{ this.numBefore }} docs after search </div>
+      <div>Fetched  {{ this.numBefore }} doc(s) after search </div>
 
-      <div>Returned {{ this.numAfter }} docs after network algorithm</div>
+      <div>Returned {{ this.numAfter }} doc(s) after network algorithm</div>
     </b-card>
     <div class="searchResult mx-auto" v-show="isResult&noError" transition="expand" style="width: 700px;">
           <a v-for="elem in resObj" :key="elem.message_id">
