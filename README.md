@@ -46,24 +46,13 @@ Just Another Really Intelligent System
     * __insert your own json filename into app.js after `keyFileName`__  
 
 
-
-
-<!-- ## For search by keyword (test)
-1. git clone this repo
-2. `pip install -r requirements.txt`
-3. `python search.py --test --keyword percutaneous` 
-    * `--test`: test mode
-    * `--keyword`: keyword you want to search. e.g. `--keyword thermal` -->
-
-
-
 ## For solr indexing (only need to do one time to set up as a service)
 `cd ./solr`
 
 `python csv_xml.py` to convert all csv instance into xml 
 
 To make a new core:
-* log in server and `sudo su - solr -c "/opt/solr/bin/solr create -c jaris"`
+* log into server and `sudo su - solr -c "/opt/solr/bin/solr create -c jaris"`
 
 To add fields:
 `bash schema.sh`
